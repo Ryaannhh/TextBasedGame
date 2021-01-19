@@ -1,0 +1,218 @@
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+
+
+
+
+public class Game{
+	JFrame window;
+	Container con;
+	JPanel titleNamePanel, startButtonPanel, textPanel,cBPanel, playerPanel;
+	JLabel titleNameLabel, scoreLabel, scoreLabelNumber, itemLabel, itemLabelName;
+	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
+	Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 30);
+	Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
+	Font textFont = new Font("Times New Roman", Font.PLAIN, 14);
+	JButton startButton, button1,button2,button3;
+	JTextArea textArea;
+	int playerScore;
+	String playerItem, position;
+	
+	TitleScreenHandler tsHandler = new TitleScreenHandler();
+	ChoiceHandler choiceHandler = new ChoiceHandler();
+	LinkedList ll = new LinkedList();
+	
+	
+	
+	public static void main(String[] args) {
+		new Game();
+	}
+	
+	public Game() {
+		window = new JFrame();
+		window.setSize(800,600);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().setBackground(Color.black);
+		window.setLayout(null);
+		window.setVisible(true);
+		con = window.getContentPane();
+		
+		titleNamePanel =  new JPanel();
+		titleNamePanel.setBounds(100,100,600,150);		
+		titleNamePanel.setBackground(Color.black);
+		titleNameLabel = new JLabel("Student Life");
+		titleNameLabel.setForeground(Color.white);
+		titleNameLabel.setFont(titleFont);
+		
+		startButtonPanel = new JPanel();
+		startButtonPanel.setBounds(300,400,200,100);
+		startButtonPanel.setBackground(Color.black);
+		
+		startButton = new JButton("START");
+		startButton.setBackground(Color.black);
+		startButton.setForeground(Color.white);
+		startButton.setFont(startButtonFont);
+		startButton.addActionListener(tsHandler);
+		
+		startButtonPanel.add(startButton);
+		titleNamePanel.add(titleNameLabel);
+		con.add(titleNamePanel);
+		con.add(startButtonPanel);
+		
+	}
+	
+	public void createGame() {
+		titleNamePanel.setVisible(false);
+		startButtonPanel.setVisible(false);
+		
+		textPanel = new JPanel();
+		textPanel.setBounds(50,300,700,150);
+		textPanel.setBackground(Color.black);
+		con.add(textPanel);
+		
+		textArea = new JTextArea("Kamu Bangun Kesiangan. Apa yang akan kamu lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
+		textArea.setBounds(50,350,700,150);
+		textArea.setBackground(Color.black);
+		textArea.setForeground(Color.white);
+		textArea.setFont(textFont);
+		textArea.setLineWrap(true);
+		textPanel.add(textArea);
+		
+		cBPanel =  new JPanel();
+		cBPanel.setBounds(250,450,240,50);
+		cBPanel.setBackground(Color.black);
+		con.add(cBPanel);
+		
+		button1 = new JButton("1");
+		button1.setBackground(Color.black);
+		button1.setForeground(Color.white);
+		button1.setFont(startButtonFont);
+		button1.addActionListener(choiceHandler);
+		button1.setActionCommand("c1");
+		cBPanel.add(button1);
+		
+		button2 = new JButton("2");
+		button2.setBackground(Color.black);
+		button2.setForeground(Color.white);
+		button2.setFont(startButtonFont);
+		button2.addActionListener(choiceHandler);
+		button2.setActionCommand("c2");
+		cBPanel.add(button2);
+		
+		button3 = new JButton("3");
+		button3.setBackground(Color.black);
+		button3.setForeground(Color.white);
+		button3.setFont(startButtonFont);
+		button3.addActionListener(choiceHandler);
+		button3.setActionCommand("c3");
+		cBPanel.add(button3);
+		
+		playerPanel = new JPanel();
+		playerPanel.setBounds(100, 15, 600, 50);
+		playerPanel.setBackground(Color.black);
+		playerPanel.setLayout(new GridLayout(1,4));
+		con.add(playerPanel);
+		scoreLabel = new JLabel("Score:");
+		scoreLabel.setFont(normalFont);
+		scoreLabel.setForeground(Color.white);
+		playerPanel.add(scoreLabel);
+		scoreLabelNumber = new JLabel();
+		scoreLabelNumber.setFont(normalFont);
+		scoreLabelNumber.setForeground(Color.white);
+		playerPanel.add(scoreLabelNumber);
+		itemLabel = new JLabel("Item:");
+		itemLabel.setFont(normalFont);
+		itemLabel.setForeground(Color.white);
+		playerPanel.add(itemLabel);
+		itemLabelName = new JLabel();
+		itemLabelName.setFont(normalFont);
+		itemLabelName.setForeground(Color.white);
+		playerPanel.add(itemLabelName);
+
+		playerSetup();
+
+	}
+	public void playerSetup(){
+		playerScore = 15;
+		playerItem = "Book";
+		itemLabelName.setText(playerItem);
+		scoreLabelNumber.setText("" + playerScore);
+		
+		koskosan();
+	}
+	
+	public void koskosan(){
+		position="koskosan";
+		textArea.setText("Pada suatu pagi yang cerah, Uzumaki sadar jika ia bangun kesiangan. Dia ada kelas jam 7 a.m tapi sekarang menunjukan pukul 6.50. "
+								+ "Apa yang akan Uzumaki lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
+		button1.setText("1");
+		button2.setText("2");
+		button3.setText("3");
+	}
+	
+	public void langsungBerangkat() {
+		position="langsungBerangkat";
+		textArea.setText("Uzumaki memakai baju dan mengambil tas kemudian langsung berlari menuju kampus.");
+		button1.setText("Next");
+		button2.setText("");
+		button3.setText("");
+		
+	//	kampus();
+	}
+	
+	
+	public void mandiDulu() {
+		position="mandiDulu";
+		playerScore-=-1;
+		textArea.setText("Kamu memilih mandi terlebih dahulu dan membuat mu semakin terlambat. \n Player Score -1.");
+		
+		button1.setText("Next");
+		button2.setText("");
+		button3.setText("");
+		
+		
+	}
+	
+	public void ending2() {
+		position="ending2";
+		textArea.setText("Kamu memilih untuk lanjut tidur dan tidak pergi kuliah.\n Karena ternyata hari ini ada penilaian besar "
+				+ "dan kamu tidak masuk...\nTerpaksa untuk mata kuliah ini kamu harus mengulang semester depan.");
+	}
+	
+	public class TitleScreenHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent event){
+			
+			createGame();
+		}
+	}
+	
+public class ChoiceHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent event){
+			
+			String yourChoice = event.getActionCommand();
+			
+			switch(position){
+			case "koskosan":
+				switch(yourChoice) {
+				case "c1":langsungBerangkat();break;
+				case "c2":mandiDulu();break;
+				case "c3":ending2();break;
+				}
+			}
+		}
+}
+}
