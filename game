@@ -20,15 +20,15 @@ import javax.swing.JTextArea;
 public class Game{
 	JFrame window;
 	Container con;
-	JPanel titleNamePanel, startButtonPanel, textPanel,cBPanel, playerPanel, picturePanel, gamepPanel, textIPanel;
-	JLabel titleNameLabel,textLabel, scoreLabel, scoreLabelNumber, itemLabel, itemLabelName, pictureLabel, gamepLabel;
+	JPanel titleNamePanel, startButtonPanel, textPanel,cBPanel, playerPanel, picturePanel, gamepPanel, textIPanel, borderPanel;
+	JLabel titleNameLabel,textLabel, scoreLabel, scoreLabelNumber, itemLabel, itemLabelName, pictureLabel, gamepLabel, borderLabel;
 	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
 	Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 30);
 	Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
 	Font textFont = new Font("Times New Roman", Font.PLAIN, 14);
 	JButton startButton, button1,button2,button3;
 	JTextArea textArea;
-	ImageIcon image, gameImage, kampus, text;
+	ImageIcon image, gameImage, kampus, text, border;
 	int playerScore;
 	String playerItem, position;
 	
@@ -56,7 +56,7 @@ public class Game{
 		picturePanel.setBounds(0,0,800,600);
 		picturePanel.setBackground(Color.black);
 		
-		
+	
 		image = new ImageIcon(getClass().getClassLoader().getResource( "images.png"));
 		pictureLabel = new JLabel();
 		pictureLabel.setIcon(image);
@@ -96,38 +96,11 @@ public class Game{
 		titleNamePanel.setVisible(false);
 		startButtonPanel.setVisible(false);
 		picturePanel.setVisible(false);
-		
-		
-		
-		textPanel = new JPanel();
-		textPanel.setBounds(50,350,700,150);
-		textPanel.setBackground(Color.black);
-		textPanel.setOpaque(false);
-		con.add(textPanel);
-		
-		textArea = new JTextArea("Kamu Bangun Kesiangan. Apa yang akan kamu lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
-		textArea.setBounds(50,350,700,150);
-		textArea.setBackground(Color.black);
-		textArea.setForeground(Color.white);
-		textArea.setFont(textFont);
-		textArea.setLineWrap(true);
-		textArea.setOpaque(false);
-		textPanel.add(textArea);
-		
-		textIPanel = new JPanel();
-		textIPanel.setBounds(50,350,700,150);
-		textIPanel.setBackground(Color.blue);
-		textIPanel.setOpaque(false);
-		con.add(textIPanel);
-		
-		text = new ImageIcon(getClass().getClassLoader().getResource( "text.jpg"));
-		textLabel = new JLabel();
-		textLabel.setIcon(text);
-		textIPanel.add(textLabel);
-		
+				
 		cBPanel =  new JPanel();
-		cBPanel.setBounds(250,500,240,50);
+		cBPanel.setBounds(250,550,240,50);
 		cBPanel.setBackground(Color.black);
+		cBPanel.setLayout(new GridLayout(1,3));
 		cBPanel.setOpaque(false);
 		con.add(cBPanel);
 		
@@ -138,6 +111,7 @@ public class Game{
 		button1.addActionListener(choiceHandler);
 		button1.setActionCommand("c1");
 		button1.setOpaque(false);
+		button1.setBorder(null);
 		cBPanel.add(button1);
 		
 		button2 = new JButton("2");
@@ -147,6 +121,7 @@ public class Game{
 		button2.addActionListener(choiceHandler);
 		button2.setActionCommand("c2");
 		button2.setOpaque(false);
+		button2.setBorder(null);
 		cBPanel.add(button2);
 		
 		button3 = new JButton("3");
@@ -156,15 +131,33 @@ public class Game{
 		button3.addActionListener(choiceHandler);
 		button3.setActionCommand("c3");
 		button3.setOpaque(false);
+		button3.setBorder(null);
 		cBPanel.add(button3);
+		
+		textPanel = new JPanel();
+		textPanel.setBounds(25,400,800,150);
+		textPanel.setBackground(Color.black);
+		textPanel.setOpaque(false);
+		con.add(textPanel);
+		
+		textArea = new JTextArea("Kamu Bangun Kesiangan. Apa yang akan kamu lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
+		textArea.setBounds(25,350,675,150);
+		textArea.setBackground(Color.black);
+		textArea.setForeground(Color.white);
+		textArea.setFont(textFont);
+		textArea.setLineWrap(true);
+		textArea.setOpaque(false);
+	//	textArea.setBorder();
+		textPanel.add(textArea);
+		
 		
 		playerPanel = new JPanel();
 		playerPanel.setBounds(100, 0, 600, 50);
-		playerPanel.setBackground(Color.black);
+		playerPanel.setBackground(Color.blue);
 		playerPanel.setLayout(new GridLayout(1,4));
 		playerPanel.setOpaque(false);
 		con.add(playerPanel);
-		scoreLabel = new JLabel("Score:");
+		scoreLabel = new JLabel("Posisi : ");
 		scoreLabel.setFont(normalFont);
 		scoreLabel.setForeground(Color.white);
 		scoreLabel.setOpaque(false);
@@ -174,46 +167,53 @@ public class Game{
 		scoreLabelNumber.setForeground(Color.white);
 		scoreLabelNumber.setOpaque(false);
 		playerPanel.add(scoreLabelNumber);
-		itemLabel = new JLabel("Item:");
+		itemLabel = new JLabel("Item : ");
 		itemLabel.setFont(normalFont);
 		itemLabel.setForeground(Color.white);
 		itemLabel.setOpaque(false);
 		playerPanel.add(itemLabel);
-		itemLabelName = new JLabel();
+		itemLabelName = new JLabel("");
 		itemLabelName.setFont(normalFont);
 		itemLabelName.setForeground(Color.white);
 		itemLabelName.setOpaque(false);
-		playerPanel.add(itemLabelName);
-
+		playerPanel.add(itemLabelName);		
+		
+		borderPanel = new JPanel();
+		borderPanel.setBounds(0,350,800,250);
+		borderPanel.setBackground(Color.black);
+		borderPanel.setOpaque(false);
+		con.add(borderPanel);
+		
+		border = new ImageIcon(getClass().getClassLoader().getResource( "tbb.png"));
+		borderLabel = new JLabel();
+		borderLabel.setIcon(border);
+		
+		borderPanel.add(borderLabel);
+		
 		gamepPanel = new JPanel();
-		gamepPanel.setBounds(0,0,800,600);
+		gamepPanel.setBounds(0,40,800,325);
 		gamepPanel.setBackground(Color.black);
 		
 		
-		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).jpg"));
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "images (3).png"));
 		gamepLabel = new JLabel();
 		gamepLabel.setIcon(gameImage);
 		gamepPanel.add(gamepLabel);
 		
 		con.add(gamepPanel);
 		
-		playerSetup();
-
-	}
-	public void playerSetup(){
-		playerScore = 15;
-		playerItem = "";
-		itemLabelName.setText(playerItem);
-		scoreLabelNumber.setText("" + playerScore);
-		
 		koskosan();
+
 	}
 	
 	public void koskosan(){
-		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).jpg"));
+		
+		
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).png"));
 		gamepLabel.setIcon(gameImage);
 		
 		position="koskosan";
+		scoreLabelNumber.setText("Kos-kosan");
 		textArea.setText("Pada suatu pagi yang cerah, Kamu sadar jika ia bangun kesiangan. Dia ada kelas jam 7 a.m tapi sekarang menunjukan pukul 6.50. "
 								+ "Apa yang akan kamu lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
 		button1.setText("1");
@@ -233,12 +233,12 @@ public class Game{
 	
 	public void mandiDulu() {
 		position="mandiDulu";
-		textArea.setText("Kamu memilih mandi terlebih dahulu dan membuat mu semakin terlambat. \n Player Score -1.");
-		playerScore = playerScore -1;
-		scoreLabelNumber.setText(""+playerScore);
-		button1.setText("Next");
+		textArea.setText("Kamu memilih mandi terlebih dahulu dan membuat mu semakin terlambat.");
+	
 		button2.setVisible(false);
 		button3.setVisible(false);
+		button1.setText("Next");
+		
 		
 		
 	}
@@ -253,17 +253,19 @@ public class Game{
 	}
 	
 	public void kampusTercinta(){
-		kampus = new ImageIcon(getClass().getClassLoader().getResource( "images.png"));
-		gamepLabel.setIcon(kampus);
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "images (3).png"));
+		gamepLabel.setIcon(gameImage);
 		
 		position = "kampusTercinta";
+		scoreLabelNumber.setText("Kampus");
 		textArea.setText("Kamu sudah berada di kampus. Kamu bisa memilih kembali atau lanjut ke kampus.\n 1 Kampus \n2 Kembali");
 		button1.setVisible(true);
 		button2.setVisible(true);
 		button3.setVisible(false);
 		button1.setText("1");
 		button2.setText("2");
-		gamepLabel.setIcon(kampus);
+	
+		con.add(playerPanel);
 
 	}
 	public void kampus() {
@@ -275,11 +277,13 @@ public class Game{
 		kosKosan2();
 	}
 	public void kosKosan2() {
-		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).jpg"));
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).png"));
 		gamepLabel.setIcon(gameImage);
 		
 		position = "kosKosan2";
-		textArea.setText("Kamu memilih untuk kembali ke kosan.\n Dan ternyata kamu mendapati bahwa buku tugas mu masih belum di bawa tadi.\n Kamu bersyukur karena kembali dan mengambil buku tugasnya.");
+		scoreLabelNumber.setText("Kos-kosan");
+		textArea.setText("Kamu memilih untuk kembali ke kosan.\n Dan ternyata kamu mendapati bahwa buku tugas mu masih belum "
+				+ "di bawa tadi.\n Kamu bersyukur karena kembali dan mengambil buku tugasnya.");
 		playerItem="Buku Tugas";
 		itemLabelName.setText(playerItem);
 		button1.setVisible(true);
@@ -290,7 +294,11 @@ public class Game{
 	}
 	
 	public void kelasTercinta() {
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "kelas (1).png"));
+		gamepLabel.setIcon(gameImage);
+		
 		position = "kelasTercinta";
+		scoreLabelNumber.setText("Kelas");
 		textArea.setText("Kamu sudah sampai di kelas, seketika seisi kelas melihatmu \n Dosen: kenapa kamu terlambat? \n Apa yang akan kamu lakukan?"
 				+ "\n 1 Langsung duduk, tidak menjawab \n 2 Menjawab");
 		button1.setVisible(true);
@@ -302,9 +310,7 @@ public class Game{
 	}
 	public void duduk() {
 		position = "duduk";
-		textArea.setText("Kamu memilih untuk langsung duduk, dengan tidak menjawab.\n Dosen mu tidak suka dengan perilaku mu. \n Player Score -1");
-		playerScore = playerScore -1;
-		scoreLabelNumber.setText(""+playerScore);
+		textArea.setText("Kamu memilih untuk langsung duduk, dengan tidak menjawab.\n Dosen mu tidak suka dengan perilaku mu.");
 		button1.setText("Next");
 		button2.setVisible(false);
 		button3.setVisible(false);
