@@ -1,0 +1,476 @@
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.LinkedList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+
+
+
+
+public class Game{
+	JFrame window;
+	Container con;
+	JPanel titleNamePanel, startButtonPanel, textPanel,cBPanel, playerPanel, picturePanel, gamepPanel, textIPanel, borderPanel;
+	JLabel titleNameLabel,textLabel, scoreLabel, scoreLabelNumber, itemLabel, itemLabelName, pictureLabel, gamepLabel, borderLabel;
+	Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
+	Font startButtonFont = new Font("Times New Roman", Font.PLAIN, 30);
+	Font normalFont = new Font("Times New Roman", Font.PLAIN, 20);
+	Font textFont = new Font("Times New Roman", Font.PLAIN, 14);
+	JButton startButton, button1,button2,button3;
+	JTextArea textArea;
+	ImageIcon image, gameImage, kampus, text, border;
+	int playerScore;
+	String playerItem, position;
+	
+	TitleScreenHandler tsHandler = new TitleScreenHandler();
+	ChoiceHandler choiceHandler = new ChoiceHandler();
+	LinkedList ll = new LinkedList();
+	
+	
+	
+	public static void main(String[] args) {
+		new Game();
+	}
+	
+	public Game() {
+		window = new JFrame();
+		window.setSize(800,600);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().setBackground(Color.black);
+		window.setLayout(null);
+		window.setVisible(true);
+		con = window.getContentPane();
+		
+
+		picturePanel = new JPanel();
+		picturePanel.setBounds(0,0,800,600);
+		picturePanel.setBackground(Color.black);
+		
+	
+		image = new ImageIcon(getClass().getClassLoader().getResource( "images.png"));
+		pictureLabel = new JLabel();
+		pictureLabel.setIcon(image);
+		picturePanel.add(pictureLabel);
+		
+		
+		titleNamePanel =  new JPanel();
+		titleNamePanel.setBounds(100,100,600,150);		
+		titleNamePanel.setBackground(Color.black);
+		titleNameLabel = new JLabel("Student Life");
+		titleNameLabel.setForeground(Color.white);
+		titleNameLabel.setFont(titleFont);
+		titleNamePanel.setOpaque(false);
+		
+		startButtonPanel = new JPanel();
+		startButtonPanel.setBounds(300,400,200,100);
+		startButtonPanel.setBackground(Color.black);
+		startButtonPanel.setOpaque(false);
+		
+		
+		startButton = new JButton("START");
+		startButton.setBackground(Color.black);
+		startButton.setForeground(Color.white);
+		startButton.setFont(startButtonFont);
+		startButton.addActionListener(tsHandler);
+		startButton.setFocusPainted(false);
+		startButton.setOpaque(false);
+		
+		startButtonPanel.add(startButton);
+		titleNamePanel.add(titleNameLabel);
+		con.add(titleNamePanel);
+		con.add(startButtonPanel);
+		con.add(picturePanel);
+	}
+	
+	public void createGame() {
+		titleNamePanel.setVisible(false);
+		startButtonPanel.setVisible(false);
+		picturePanel.setVisible(false);
+				
+		cBPanel =  new JPanel();
+		cBPanel.setBounds(250,550,240,50);
+		cBPanel.setBackground(Color.black);
+		cBPanel.setLayout(new GridLayout(1,3));
+		cBPanel.setOpaque(false);
+		con.add(cBPanel);
+		
+		button1 = new JButton("1");
+		button1.setBackground(Color.black);
+		button1.setForeground(Color.white);
+		button1.setFont(startButtonFont);
+		button1.addActionListener(choiceHandler);
+		button1.setActionCommand("c1");
+		button1.setOpaque(false);
+		button1.setBorder(null);
+		cBPanel.add(button1);
+		
+		button2 = new JButton("2");
+		button2.setBackground(Color.black);
+		button2.setForeground(Color.white);
+		button2.setFont(startButtonFont);
+		button2.addActionListener(choiceHandler);
+		button2.setActionCommand("c2");
+		button2.setOpaque(false);
+		button2.setBorder(null);
+		cBPanel.add(button2);
+		
+		button3 = new JButton("3");
+		button3.setBackground(Color.black);
+		button3.setForeground(Color.white);
+		button3.setFont(startButtonFont);
+		button3.addActionListener(choiceHandler);
+		button3.setActionCommand("c3");
+		button3.setOpaque(false);
+		button3.setBorder(null);
+		cBPanel.add(button3);
+		
+		textPanel = new JPanel();
+		textPanel.setBounds(25,400,800,150);
+		textPanel.setBackground(Color.black);
+		textPanel.setOpaque(false);
+		con.add(textPanel);
+		
+		textArea = new JTextArea("Kamu Bangun Kesiangan. Apa yang akan kamu lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
+		textArea.setBounds(25,350,675,150);
+		textArea.setBackground(Color.black);
+		textArea.setForeground(Color.white);
+		textArea.setFont(textFont);
+		textArea.setLineWrap(true);
+		textArea.setOpaque(false);
+	//	textArea.setBorder();
+		textPanel.add(textArea);
+		
+		
+		playerPanel = new JPanel();
+		playerPanel.setBounds(100, 0, 600, 50);
+		playerPanel.setBackground(Color.blue);
+		playerPanel.setLayout(new GridLayout(1,4));
+		playerPanel.setOpaque(false);
+		con.add(playerPanel);
+		scoreLabel = new JLabel("Posisi : ");
+		scoreLabel.setFont(normalFont);
+		scoreLabel.setForeground(Color.white);
+		scoreLabel.setOpaque(false);
+		playerPanel.add(scoreLabel);
+		scoreLabelNumber = new JLabel();
+		scoreLabelNumber.setFont(normalFont);
+		scoreLabelNumber.setForeground(Color.white);
+		scoreLabelNumber.setOpaque(false);
+		playerPanel.add(scoreLabelNumber);
+		itemLabel = new JLabel("Item : ");
+		itemLabel.setFont(normalFont);
+		itemLabel.setForeground(Color.white);
+		itemLabel.setOpaque(false);
+		playerPanel.add(itemLabel);
+		itemLabelName = new JLabel("");
+		itemLabelName.setFont(normalFont);
+		itemLabelName.setForeground(Color.white);
+		itemLabelName.setOpaque(false);
+		playerPanel.add(itemLabelName);		
+		
+		borderPanel = new JPanel();
+		borderPanel.setBounds(0,350,800,250);
+		borderPanel.setBackground(Color.black);
+		borderPanel.setOpaque(false);
+		con.add(borderPanel);
+		
+		border = new ImageIcon(getClass().getClassLoader().getResource( "tbb.png"));
+		borderLabel = new JLabel();
+		borderLabel.setIcon(border);
+		
+		borderPanel.add(borderLabel);
+		
+		gamepPanel = new JPanel();
+		gamepPanel.setBounds(0,40,800,325);
+		gamepPanel.setBackground(Color.black);
+		
+		
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "images (3).png"));
+		gamepLabel = new JLabel();
+		gamepLabel.setIcon(gameImage);
+		gamepPanel.add(gamepLabel);
+		
+		con.add(gamepPanel);
+		
+		koskosan();
+
+	}
+	
+	public void koskosan(){
+		
+		
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).png"));
+		gamepLabel.setIcon(gameImage);
+		
+		position="koskosan";
+		scoreLabelNumber.setText("Kos-kosan");
+		textArea.setText("Pada suatu pagi yang cerah, Kamu sadar jika ia bangun kesiangan. Dia ada kelas jam 7 a.m tapi sekarang menunjukan pukul 6.50. "
+								+ "Apa yang akan kamu lakukan.\n1 Langsung berangkat tanpa mandi.\n2 Mandi dulu baru berangkat.\n3 Lanjut tidur.");
+		button1.setText("1");
+		button2.setText("2");
+		button3.setText("3");
+	}
+	
+	public void langsungBerangkat() {
+		position="langsungBerangkat";
+		textArea.setText("Uzumaki memakai baju dan mengambil tas kemudian langsung berlari menuju kampus.");
+		button1.setText("Next");
+		button2.setVisible(false);
+		button3.setVisible(false);
+		
+	}
+	
+	
+	public void mandiDulu() {
+		position="mandiDulu";
+		textArea.setText("Kamu memilih mandi terlebih dahulu dan membuat mu semakin terlambat.");
+	
+		button2.setVisible(false);
+		button3.setVisible(false);
+		button1.setText("Next");
+		
+		
+		
+	}
+	
+	public void ending2() {
+		position="ending2";
+		textArea.setText("Kamu memilih untuk lanjut tidur dan tidak pergi kuliah.\n Karena ternyata hari ini ada penilaian besar "
+				+ "dan kamu tidak masuk...\nTerpaksa untuk mata kuliah ini kamu harus mengulang semester depan.");
+		button1.setVisible(false);
+		button2.setVisible(false);
+		button3.setVisible(false);
+	}
+	
+	public void kampusTercinta(){
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "images (3).png"));
+		gamepLabel.setIcon(gameImage);
+		
+		position = "kampusTercinta";
+		scoreLabelNumber.setText("Kampus");
+		textArea.setText("Kamu sudah berada di kampus. Kamu bisa memilih kembali atau lanjut ke kampus.\n 1 Kampus \n2 Kembali");
+		button1.setVisible(true);
+		button2.setVisible(true);
+		button3.setVisible(false);
+		button1.setText("1");
+		button2.setText("2");
+	
+		con.add(playerPanel);
+
+	}
+	public void kampus() {
+		position = "kampus";
+		kelasTercinta();
+	}
+	public void kembali() {
+		position = "kembali";
+		kosKosan2();
+	}
+	public void kosKosan2() {
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "koskosan (1).png"));
+		gamepLabel.setIcon(gameImage);
+		
+		position = "kosKosan2";
+		scoreLabelNumber.setText("Kos-kosan");
+		textArea.setText("Kamu memilih untuk kembali ke kosan.\n Dan ternyata kamu mendapati bahwa buku tugas mu masih belum "
+				+ "di bawa tadi.\n Kamu bersyukur karena kembali dan mengambil buku tugasnya.");
+		playerItem="Buku Tugas";
+		itemLabelName.setText(playerItem);
+		button1.setVisible(true);
+		button1.setText("Next");
+		button2.setVisible(false);
+		button3.setVisible(false);
+
+	}
+	
+	public void kelasTercinta() {
+		gameImage = new ImageIcon(getClass().getClassLoader().getResource( "kelas (1).png"));
+		gamepLabel.setIcon(gameImage);
+		
+		position = "kelasTercinta";
+		scoreLabelNumber.setText("Kelas");
+		textArea.setText("Kamu sudah sampai di kelas, seketika seisi kelas melihatmu \n Dosen: kenapa kamu terlambat? \n Apa yang akan kamu lakukan?"
+				+ "\n 1 Langsung duduk, tidak menjawab \n 2 Menjawab");
+		button1.setVisible(true);
+		button2.setVisible(true);
+		button3.setVisible(false);
+		button1.setText("1");
+		button2.setText("2");
+		
+	}
+	public void duduk() {
+		position = "duduk";
+		textArea.setText("Kamu memilih untuk langsung duduk, dengan tidak menjawab.\n Dosen mu tidak suka dengan perilaku mu.");
+		button1.setText("Next");
+		button2.setVisible(false);
+		button3.setVisible(false);
+	}
+	public void jawab() {
+		position = "jawab";
+		textArea.setText("Kamu menjawab dengan jujur\n Dosen: Baik, lainkali jangan di ulang, punya hp di pake buat alarm.");
+		button1.setText("Next");
+		button2.setVisible(false);
+		button3.setVisible(false);
+
+	}
+	
+	public void tugas() {
+		position = "tugas";
+		textArea.setText("Saatnya Pengumpulan Tugas.\n Dosen: Baiklah anak-anak,jadi hari ini jangan lupa untuk mengumpulkan tugas yang minggu kemarin saya sudah sampaikan. \n Dosen: Karena ini merupakan tugas besar, jadi ini akan sangat berpengaruh dengan nilai akhir kalian, Saya tidak akan memberikan toleransi apapun."
+				+ "\n Apa yang akan kamu lakukan?\n 1 Maju kedepan, mengumpulkan tugas\n 2 Membentak dan mengancam dosen");
+		button1.setVisible(true);
+		button2.setVisible(true);
+		button3.setVisible(false);
+		button1.setText("1");
+		button2.setText("2");
+	}
+	public void maju() {
+		position = "maju";
+		if(playerItem=="Buku Tugas") {
+			textArea.setText("Kamu maju kedepan dan kamu mengumpulkan tugas yang telah diberikan.");
+		}else {
+			textArea.setText("Kamu sadar bahwa kamu tidak membawa buku tugas.");
+		}
+		
+		button1.setText("Next");
+		button2.setVisible(false);
+		button3.setVisible(false);
+
+	}
+	public void ancam() {
+		position = "mengancam";
+		ending3();
+	}
+	
+	public void ending(){
+		position = "ending";
+		textArea.setText("Dosen: performa belajar mu hari ini bagus sekali, saya ucapkan selamat untuk kamu.\n Kamu lulus mata kuliah dan tidak akan mengulang semester depan...\n\n");
+		
+		button1.setText("");
+		button2.setText("");
+		button3.setText("");
+		button1.setVisible(false);
+		button2.setVisible(false);
+		button3.setVisible(false);
+	}
+	
+	public void ending3(){
+		position = "ending3";
+		textArea.setText("Performa belajar mu sangat buruk.\n Kamu mendapat nilai yang rendah..."
+				+ "\n Kamu terpaksa untuk mengulang mata kuliah semester depan...\n Orang tua mu sangat kecewa denganmu, dasar anak goblok!\n GAME OVER\n\n");
+		
+		button1.setText("");
+		button2.setText("");
+		button3.setText("");
+		button1.setVisible(false);
+		button2.setVisible(false);
+		button3.setVisible(false);
+	}
+	
+	public class TitleScreenHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent event){
+			
+			createGame();
+		}
+	}
+	
+	
+	
+public class ChoiceHandler implements ActionListener{
+		
+		public void actionPerformed(ActionEvent event){
+			
+			String yourChoice = event.getActionCommand();
+			
+			switch(position){
+			case "koskosan":
+				switch(yourChoice) {
+				case "c1":langsungBerangkat();break;
+				case "c2":mandiDulu();break;
+				case "c3":ending2();break;
+				}
+				break;
+			case "langsungBerangkat":
+				switch(yourChoice){
+				case "c1": kampusTercinta(); break;
+				}
+				break;
+			case "mandiDulu":
+				switch(yourChoice){
+				case "c1": kampusTercinta(); break;
+				}
+				break;
+				
+			case "kampusTercinta":
+				switch(yourChoice) {
+				case "c1": kampus(); break;
+				case "c2": kembali(); break;
+				}
+				break;
+			case "kampus":
+				switch(yourChoice) {
+				case "c1": kelasTercinta(); break;
+				}
+				break;
+			case "kembali":
+				switch(yourChoice) {
+				case "c1": kosKosan2(); break;
+				}
+				break;
+			case "kosKosan2":
+				switch(yourChoice) {
+				case "c1" : kelasTercinta(); break;
+				}
+				break;
+				
+			case "kelasTercinta":
+				switch(yourChoice) {
+				case "c1": duduk(); break;
+				case "c2": jawab(); break;
+				}
+				break;
+			case "duduk":
+				switch(yourChoice) {
+				case "c1": tugas(); break;
+				}
+				break;
+			case "jawab":
+				switch(yourChoice) {
+				case "c1": tugas(); break;
+				}
+				break;
+				
+			case "tugas":
+				switch(yourChoice) {
+				case "c1": maju(); break;
+				case "c2": ending3(); break;
+				}
+				break;
+			case "maju":
+				switch(yourChoice) {
+				case "c1":
+					if(playerItem=="Buku Tugas"){
+						ending();
+					}
+					else{
+						ending3();
+					}
+					break;
+				}
+				break;
+				}
+			}
+		}
+
+}
